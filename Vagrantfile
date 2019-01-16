@@ -40,6 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		config.vm.provision "file", source: "sshd_config", destination: "/home/vagrant/sshd_config"
 		config.vm.provision "file", source: "hadoop-env-files", destination: "/home/vagrant/hadoop-env-files"
 		config.vm.provision "file", source: "test", destination: "/home/vagrant/test"
+		config.vm.provision "file", source: "yum", destination: "/home/vagrant/yum"
 
 		# VirtaulBox相关配置
 		node.vm.provider "virtualbox" do |v|
@@ -50,8 +51,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			# 设置虚拟机的CPU个数
 			v.cpus = 1
 		end
+
 		# node.vm.provision "shell", inline: $clusters_script # 使用shell脚本进行软件安装和配置
-		node.vm.provision "shell", path: "cluster-env.sh" # 使用shell脚本进行软件安装和配置
+		# 配置jdk hadoop flink大数据开发环境变量
+		node.vm.provision "shell", path: "scripts/cluster-env.sh" 
+		# 更换国内yum源
+		node.vm.provision "shell", path: "scripts/replace-yum-repo.sh" 
+		# 同步集群时间
+		node.vm.provision "shell", path: "scripts/sync-time.sh" 
+
 		end
 	end
 end
