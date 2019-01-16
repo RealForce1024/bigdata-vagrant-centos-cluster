@@ -2,9 +2,9 @@
 # vi: set ft=ruby :
 #author: TonyFeng
 
+VAGRANTFILE_API_VERSION = "2"
 
-
-Vagrant.configure("2") do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	(1..3).each do |i|
 		config.vm.define "node0#{i}" do |node|
 	
