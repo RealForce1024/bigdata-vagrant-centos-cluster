@@ -2,59 +2,7 @@
 # vi: set ft=ruby :
 #author: TonyFeng
 
-$clusters_script = <<-SCRIPT
-#!/bin/bash
 
-# at /home/vagrant
-#---hosts---
-cat >> /etc/hosts <<EOF
-
-192.168.33.1  node01
-192.168.33.2  node02
-192.168.33.3  node03
-
-EOF
-#---env---
-cat >> /etc/profile <<EOF
-export JAVA_HOME=/home/vagrant/softwares/jdk
-export HADOOP_HOME=/home/vagrant/softwares/hadoop
-export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
-EOF
-source /etc/profile
-
-cat >> /root/.bashrc <<EOF
-export JAVA_HOME=/home/vagrant/softwares/jdk
-export HADOOP_HOME=/home/vagrant/softwares/hadoop
-export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
-EOF
-source /root/.bashrc
-
-cat >> .bashrc <<EOF
-export JAVA_HOME=/home/vagrant/softwares/jdk
-export HADOOP_HOME=/home/vagrant/softwares/hadoop
-export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
-EOF
-source .bashrc
-
-
-#---hadoop---
-tar -zxvf softwares/hadoop-2.9.2.tar.gz -C softwares/
-mv -f softwares/hadoop-2.9.2 softwares/hadoop
-# hadoop env update
-cp -r hadoop-env-files/*  softwares/hadoop/etc/hadoop/
-#rm  hadoop-2.9.2.tar.gz
-
-#---jdk---
-tar -zxvf softwares/jdk-8u202-linux-x64.tar.gz -C softwares/
-mv softwares/jdk1.8.0_202 softwares/jdk
-#rm jdk-8u202-linux-x64.tar.gz
-
-
-#---ssh---
-mv /home/vagrant/sshd_config /etc/ssh/sshd_config
-systemctl restart sshd.service
-
-SCRIPT
 
 Vagrant.configure("2") do |config|
 	(1..3).each do |i|
@@ -69,13 +17,15 @@ Vagrant.configure("2") do |config|
 
 		if i==1
 			# hadoop hdfs namenode address 
-			node.vm.network "forwarded_port", guest: 9001, host: 9002
+			node.vm.network "forwarded_port", guest: 9001, host: 9002, protocol: "tcp", id: "hdfs_namenode"
 			# hadoop hdfs secondary NameNode web管理端口
-			node.vm.network "forwarded_port", guest: 50070, host: 50071
+			node.vm.network "forwarded_port", guest: 50070, host: 50071, protocol: "tcp", id: "hdfs_secondary_name_node"
 			# hadoop yarn resource manager web端口
-			node.vm.network "forwarded_port", guest: 8088, host: 8089
+			node.vm.network "forwarded_port", guest: 8088, host: 8089, protocol: "tcp", id: "yarn_rm_web"
 			# flink web界面端口
-			node.vm.network "forwarded_port", guest: 8081, host: 8082
+			node.vm.network "forwarded_port", guest: 8081, host: 8082, protocol: "tcp", id: "flink_web"
+			# nc 端口
+			node.vm.network "forwarded_port", guest: 9998, host: 9999, protocol: "tcp", id: "nc"
 		end
 		# 宿主机与虚拟机22端口转发映
 		# config.vm.network "forwarded_port", guest: 22, host: "220#{i}"
@@ -100,7 +50,8 @@ Vagrant.configure("2") do |config|
 			# 设置虚拟机的CPU个数
 			v.cpus = 1
 		end
-		node.vm.provision "shell", inline: $clusters_script # 使用shell脚本进行软件安装和配置
+		# node.vm.provision "shell", inline: $clusters_script # 使用shell脚本进行软件安装和配置
+		node.vm.provision "shell", path: "cluster-env.sh" # 使用shell脚本进行软件安装和配置
 		end
 	end
 end
