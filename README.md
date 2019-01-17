@@ -4,7 +4,7 @@
 - forward port ruls ✔️ 
 - sudoers ✔️
 - hadoop  ️✔️
-- flink   ✘
+- flink   ✔️
 - spark   ✘
 - hdfs    ✔️
 - yarn    ✔️ 
