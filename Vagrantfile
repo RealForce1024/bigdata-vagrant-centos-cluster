@@ -35,6 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		# 拷贝相应的依赖文件
 		config.vm.provision "file", source: "apps/jdk-8u202-linux-x64.tar.gz", destination: "/home/vagrant/apps/jdk-8u202-linux-x64.tar.gz"
 		config.vm.provision "file", source: "apps/hadoop-2.9.2.tar.gz", destination: "/home/vagrant/apps/hadoop-2.9.2.tar.gz"
+		config.vm.provision "file", source: "apps/flink-1.7.1-bin-hadoop28-scala_2.12.tgz", destination: "/home/vagrant/apps/flink-1.7.1-bin-hadoop28-scala_2.12.tgz"
 		config.vm.provision "file", source: "sshd_config", destination: "/home/vagrant/sshd_config"
 		config.vm.provision "file", source: "hadoop-env-files", destination: "/home/vagrant/hadoop-env-files"
 		config.vm.provision "file", source: "test", destination: "/home/vagrant/test"
