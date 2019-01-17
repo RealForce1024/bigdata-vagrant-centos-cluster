@@ -11,36 +11,36 @@ cat >>/etc/hosts <<EOF
 EOF
 #---env---
 cat >>/etc/profile <<EOF
-export JAVA_HOME=/home/vagrant/softwares/jdk
-export HADOOP_HOME=/home/vagrant/softwares/hadoop
+export JAVA_HOME=/home/vagrant/apps/jdk
+export HADOOP_HOME=/home/vagrant/apps/hadoop
 export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
 EOF
 source /etc/profile
 
 cat >>/root/.bashrc <<EOF
-export JAVA_HOME=/home/vagrant/softwares/jdk
-export HADOOP_HOME=/home/vagrant/softwares/hadoop
+export JAVA_HOME=/home/vagrant/apps/jdk
+export HADOOP_HOME=/home/vagrant/apps/hadoop
 export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
 EOF
 source /root/.bashrc
 
 cat >>.bashrc <<EOF
-export JAVA_HOME=/home/vagrant/softwares/jdk
-export HADOOP_HOME=/home/vagrant/softwares/hadoop
+export JAVA_HOME=/home/vagrant/apps/jdk
+export HADOOP_HOME=/home/vagrant/apps/hadoop
 export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$PATH
 EOF
 source .bashrc
 
 #---hadoop---
-tar -zxvf softwares/hadoop-2.9.2.tar.gz -C softwares/
-mv -f softwares/hadoop-2.9.2 softwares/hadoop
+tar -zxvf apps/hadoop-2.9.2.tar.gz -C apps/
+mv -f apps/hadoop-2.9.2 apps/hadoop
 # hadoop env update
-cp -r hadoop-env-files/* softwares/hadoop/etc/hadoop/
+cp -r hadoop-env-files/* apps/hadoop/etc/hadoop/
 #rm  hadoop-2.9.2.tar.gz
 
 #---jdk---
-tar -zxvf softwares/jdk-8u202-linux-x64.tar.gz -C softwares/
-mv softwares/jdk1.8.0_202 softwares/jdk
+tar -zxvf apps/jdk-8u202-linux-x64.tar.gz -C apps/
+mv apps/jdk1.8.0_202 apps/jdk
 #rm jdk-8u202-linux-x64.tar.gz
 
 #---ssh---

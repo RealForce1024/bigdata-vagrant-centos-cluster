@@ -19,10 +19,10 @@
 <configuration>
 	<property>
 		<name>fs.defaultFS</name>
-		<value>hdfs://node01:9001</value>
+		<value>hdfs://node01:9000</value>
 	</property>
 	<property>
 		<name>hadoop.tmp.dir</name>
-		<value>/home/vagrant/softwares/hadoop/tmp</value>
+		<value>/home/vagrant/apps/hadoop/tmp</value>
 	</property>
 </configuration>

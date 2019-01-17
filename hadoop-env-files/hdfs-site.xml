@@ -19,11 +19,11 @@
 <configuration>
 	<property>
 		<name>dfs.namenode.name.dir</name>
-		<value>/home/vagrant/softwares/hadoop/data/name</value>
+		<value>/home/vagrant/apps/hadoop/data/name</value>
 	</property>
 	<property>
 		<name>dfs.datanode.data.dir</name>
-		<value>/home/vagrant/softwares/hadoop/data/data</value>
+		<value>/home/vagrant/apps/hadoop/data/data</value>
 	</property>
 	<property>
 		<name>dfs.replication</name>

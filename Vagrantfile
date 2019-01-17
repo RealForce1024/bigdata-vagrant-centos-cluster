@@ -16,9 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		node.vm.network "private_network", ip: "192.168.33.#{i}"
 
 		if i==1
-			# hadoop hdfs namenode address 
-			node.vm.network "forwarded_port", guest: 9001, host: 9002, protocol: "tcp", id: "hdfs_namenode"
-			# hadoop hdfs secondary NameNode web管理端口
+			# hadoop HDFS NameNode web管理端口
 			node.vm.network "forwarded_port", guest: 50070, host: 50071, protocol: "tcp", id: "hdfs_secondary_name_node"
 			# hadoop yarn resource manager web端口
 			node.vm.network "forwarded_port", guest: 8088, host: 8089, protocol: "tcp", id: "yarn_rm_web"
@@ -35,8 +33,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		#node.vm.synced_folder "~/Desktop/share", "/home/vagrant/share"
 
 		# 拷贝相应的依赖文件
-		config.vm.provision "file", source: "softwares/jdk-8u202-linux-x64.tar.gz", destination: "/home/vagrant/softwares/jdk-8u202-linux-x64.tar.gz"
-		config.vm.provision "file", source: "softwares/hadoop-2.9.2.tar.gz", destination: "/home/vagrant/softwares/hadoop-2.9.2.tar.gz"
+		config.vm.provision "file", source: "apps/jdk-8u202-linux-x64.tar.gz", destination: "/home/vagrant/apps/jdk-8u202-linux-x64.tar.gz"
+		config.vm.provision "file", source: "apps/hadoop-2.9.2.tar.gz", destination: "/home/vagrant/apps/hadoop-2.9.2.tar.gz"
 		config.vm.provision "file", source: "sshd_config", destination: "/home/vagrant/sshd_config"
 		config.vm.provision "file", source: "hadoop-env-files", destination: "/home/vagrant/hadoop-env-files"
 		config.vm.provision "file", source: "test", destination: "/home/vagrant/test"

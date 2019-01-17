@@ -23,8 +23,7 @@
 
 # The java implementation to use.
 #export JAVA_HOME=${JAVA_HOME}
-export JAVA_HOME=/home/vagrant/softwares/jdk
-
+export JAVA_HOME=/home/vagrant/apps/jdk
 
 # The jsvc implementation to use. Jsvc is required to run secure datanodes
 # that bind to privileged ports to provide authentication of data transfer
@@ -36,11 +35,11 @@ export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-"/etc/hadoop"}
 
 # Extra Java CLASSPATH elements.  Automatically insert capacity-scheduler.
 for f in $HADOOP_HOME/contrib/capacity-scheduler/*.jar; do
-  if [ "$HADOOP_CLASSPATH" ]; then
-    export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$f
-  else
-    export HADOOP_CLASSPATH=$f
-  fi
+	if [ "$HADOOP_CLASSPATH" ]; then
+		export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$f
+	else
+		export HADOOP_CLASSPATH=$f
+	fi
 done
 
 # The maximum amount of heap to use, in MB. Default is 1000.
@@ -69,7 +68,7 @@ export HADOOP_PORTMAP_OPTS="-Xmx512m $HADOOP_PORTMAP_OPTS"
 export HADOOP_CLIENT_OPTS="$HADOOP_CLIENT_OPTS"
 # set heap args when HADOOP_HEAPSIZE is empty
 if [ "$HADOOP_HEAPSIZE" = "" ]; then
-  export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS"
+	export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS"
 fi
 #HADOOP_JAVA_PLATFORM_OPTS="-XX:-UsePerfData $HADOOP_JAVA_PLATFORM_OPTS"
 
@@ -100,7 +99,7 @@ export HADOOP_SECURE_DN_USER=${HADOOP_SECURE_DN_USER}
 ###
 
 # The directory where pid files are stored. /tmp by default.
-# NOTE: this should be set to a directory that can only be written to by 
+# NOTE: this should be set to a directory that can only be written to by
 #       the user that will run the hadoop daemons.  Otherwise there is the
 #       potential for a symlink attack.
 export HADOOP_PID_DIR=${HADOOP_PID_DIR}
