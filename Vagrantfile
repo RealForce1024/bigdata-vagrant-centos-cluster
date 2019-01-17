@@ -59,6 +59,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		node.vm.provision "shell", path: "scripts/replace-yum-repo.sh" 
 		# 同步集群时间
 		node.vm.provision "shell", path: "scripts/sync-time.sh" 
+		# adduser usergroup sudoers
+		node.vm.provision "shell", path: "scripts/add-user.sh" 
+		# todo:  auto login without password 
+		# node.vm.provision "shell", path: "scripts/ssh-group.sh" 
 
 		end
 	end
