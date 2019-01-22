@@ -14,4 +14,4 @@ sudo yum clean all
 sudo yum makecache
 
 ## install some useful tools
-sudo yum install -y iptables-services lsof hstr epel-release lrzsz.x86_64 nmap-ncat.x86_64 net-tools vim-enhanced.x86_64 sshpass wget curl conntrack-tools vim net-tools ntp dos2unix
+sudo yum install -y telnet iptables-services lsof hstr epel-release lrzsz.x86_64 nmap-ncat.x86_64 net-tools vim-enhanced.x86_64 sshpass wget curl conntrack-tools vim net-tools ntp dos2unix

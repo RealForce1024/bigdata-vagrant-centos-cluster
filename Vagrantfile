@@ -5,6 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
 	(1..3).each do |i|
 		config.vm.define "node0#{i}" do |node|
 	
@@ -25,6 +26,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			# nc 端口
 			node.vm.network "forwarded_port", guest: 9998, host: 9999, protocol: "tcp", id: "nc"
 		end
+
+		if i==2
+			node.vm.network "forwarded_port", guest: 50075, host: 50077, protocol: "tcp", id: "node02_datenode"
+			node.vm.network "forwarded_port", guest: 8042, host: 8044, protocol: "tcp", id: "node02_nodemanager"
+		end
+		if i==3
+			node.vm.network "forwarded_port", guest: 50075, host: 50078, protocol: "tcp", id: "node03_datenode"
+			node.vm.network "forwarded_port", guest: 8042, host: 8045, protocol: "tcp", id: "node03_nodemanager"
+		end
+		
 		# 宿主机与虚拟机22端口转发映
 		# config.vm.network "forwarded_port", guest: 22, host: "220#{i}"
 		node.vm.network "forwarded_port", guest: 22, host: "220#{i}"
@@ -37,10 +48,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		config.vm.provision "file", source: "apps/hadoop-2.9.2.tar.gz", destination: "/home/vagrant/apps/hadoop-2.9.2.tar.gz"
 		config.vm.provision "file", source: "apps/flink-1.7.1-bin-hadoop28-scala_2.12.tgz", destination: "/home/vagrant/apps/flink-1.7.1-bin-hadoop28-scala_2.12.tgz"
 		config.vm.provision "file", source: "sshd_config", destination: "/home/vagrant/sshd_config"
-		config.vm.provision "file", source: "hadoop-env-files", destination: "/home/vagrant/hadoop-env-files"
 		config.vm.provision "file", source: "test", destination: "/home/vagrant/test"
 		config.vm.provision "file", source: "yum", destination: "/home/vagrant/yum"
-
+		config.vm.provision "file", source: "scripts/sudoers", destination: "/home/vagrant/scripts"
+		config.vm.provision "file", source: "ssh-auto-login", destination: "/home/vagrant/ssh-auto-login"
+		if i==2 || i==3
+			node.vm.provision "file", source: "hadoop-env-files-for-slaves", destination: "/home/vagrant/hadoop-env-files"
+		end
+		if i==1
+			node.vm.provision "file", source: "hadoop-env-files-for-master", destination: "/home/vagrant/hadoop-env-files"
+		end
 		# VirtaulBox相关配置
 		node.vm.provider "virtualbox" do |v|
 			# 设置虚拟机的名称

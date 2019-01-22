@@ -9,6 +9,7 @@ cat >>/etc/hosts <<EOF
 192.168.33.3  node03
 
 EOF
+
 #---env---
 cat >>/etc/profile <<EOF
 export JAVA_HOME=/home/vagrant/apps/jdk
@@ -48,10 +49,12 @@ cp -r hadoop-env-files/* apps/hadoop/etc/hadoop/
 
 #---flink---
 tar -zxvf apps/flink-1.7.1-bin-hadoop28-scala_2.12.tgz -C apps/
-mv -f apps/flink-1.7.1 apps/hadoop
+mv -f apps/flink-1.7.1 apps/flink
 # flink env update
 cp -r flink-env-files/* apps/flink/conf/
 
 #---ssh---
 mv /home/vagrant/sshd_config /etc/ssh/sshd_config
 sudo systemctl restart sshd.service
+
+sudo chown -R vagrant:vagrant /home/vagrant/apps/hadoop /home/vagrant/apps/jdk /home/vagrant/apps/flink
