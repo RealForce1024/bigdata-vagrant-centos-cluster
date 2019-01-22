@@ -1,5 +1,5 @@
 # bigdata-vagrant-centos-cluster
-灵活便捷的大数据分布式实验环境部署方案
+跨平台的灵活便捷的大数据分布式实验环境部署方案(支持windows,mac,linux平台)
 
 - forward port ruls ✔️ 
 - ssh-auto-login ✔️
