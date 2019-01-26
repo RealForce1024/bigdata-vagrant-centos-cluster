@@ -15,7 +15,8 @@ cat >>/etc/profile <<EOF
 export JAVA_HOME=/home/vagrant/apps/jdk
 export HADOOP_HOME=/home/vagrant/apps/hadoop
 export FLINK_HOME=/home/vagrant/apps/flink
-export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$FLINK_HOME/bin:$PATH
+export ZOOKEEPER_HOME=/home/vagrant/apps/zookeeper
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$FLINK_HOME/bin:$ZOOKEEPER_HOME/bin:$PATH
 EOF
 source /etc/profile
 
@@ -23,7 +24,8 @@ cat >>/root/.bashrc <<EOF
 export JAVA_HOME=/home/vagrant/apps/jdk
 export HADOOP_HOME=/home/vagrant/apps/hadoop
 export FLINK_HOME=/home/vagrant/apps/flink
-export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$FLINK_HOME/bin:$PATH
+export ZOOKEEPER_HOME=/home/vagrant/apps/zookeeper
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$FLINK_HOME/bin:$ZOOKEEPER_HOME/bin:$PATH
 EOF
 source /root/.bashrc
 
@@ -31,7 +33,8 @@ cat >>.bashrc <<EOF
 export JAVA_HOME=/home/vagrant/apps/jdk
 export HADOOP_HOME=/home/vagrant/apps/hadoop
 export FLINK_HOME=/home/vagrant/apps/flink
-export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$FLINK_HOME/bin:$PATH
+export ZOOKEEPER_HOME=/home/vagrant/apps/zookeeper
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$FLINK_HOME/bin:$ZOOKEEPER_HOME/bin:$PATH
 EOF
 source .bashrc
 
@@ -53,6 +56,11 @@ mv -f apps/flink-1.7.1 apps/flink
 # flink env update
 cp -r flink-env-files/* apps/flink/conf/
 
+#---zookeeper---
+tar -zxvf apps/zookeeper-3.4.12.tar.gz -C apps/
+mv -f apps/zookeeper-3.4.12 apps/zookeeper
+# flink env update
+cp -r zk-env-files/* apps/zookeeper/conf/
 #---ssh---
 mv /home/vagrant/sshd_config /etc/ssh/sshd_config
 sudo systemctl restart sshd.service

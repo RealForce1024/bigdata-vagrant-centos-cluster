@@ -24,3 +24,9 @@ wget https://downloads.lightbend.com/scala/2.12.8/scala-2.12.8.tgz
 ```
 wget http://mirrors.tuna.tsinghua.edu.cn/apache/flink/flink-1.7.1/flink-1.7.1-bin-hadoop28-scala_2.12.tgz
 ```
+
+- zookeeper
+
+```
+wget https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.12/zookeeper-3.4.12.tar.gz
+```
