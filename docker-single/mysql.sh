@@ -1,0 +1,1 @@
+docker run -di --name=mysql --restart=always  -p 3306:3306  -e MYSQL_ROOT_PASSWORD=root docker.io/centos/mysql-57-centos7 --lower_case_table_names=1
