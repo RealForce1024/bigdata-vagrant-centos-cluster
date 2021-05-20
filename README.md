@@ -11,7 +11,12 @@
 - yarn    ✔️ 
 - kafka   ✘ 
 - zookeeper ✘
+- docker √
+- docker alias √ 
 
+# software
+Vagrant 2.2.12
+VirtualBox 6.1.22
 
 # Useage
 1. download vagrant && virtualbox  
