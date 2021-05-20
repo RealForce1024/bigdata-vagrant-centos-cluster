@@ -78,6 +78,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		node.vm.provision "shell", path: "scripts/sync-time.sh" 
 		# adduser usergroup sudoers
 		node.vm.provision "shell", path: "scripts/add-user.sh" 
+		# add docker alias
+		#node.vm.provision "shell", path: "scripts/add-docker-alias.sh"
 		# todo:  auto login without password 
 		# node.vm.provision "shell", path: "scripts/ssh-group.sh" 
 

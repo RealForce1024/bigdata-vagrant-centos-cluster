@@ -14,6 +14,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "centos/7"
   config.vm.provision "file", source: "sshd_config", destination: "/home/vagrant/sshd_config"
+  config.vm.provision "file", source: "add-docker-alias.sh", destination: "/home/vagrant/add-docker-alias.sh"
   # # config.ssh.username = "root"
   # # config.ssh.password = "vagrant"
   # config.ssh.private_key_path=".vagrant/machines/default/virtualbox/private_key" 
@@ -32,7 +33,7 @@ Vagrant.configure("2") do |config|
 			v.cpus = 1
 		end
   config.vm.provision "shell", inline: <<-SHELL
-	
+  	
   #---ssh---
   mv /home/vagrant/sshd_config /etc/ssh/sshd_config
   sudo systemctl restart sshd.service
@@ -96,7 +97,13 @@ echo 'enable docker'
 systemctl daemon-reload
 systemctl enable docker
 systemctl start docker
+# /bin/bash /home/vagrant/add-docker-alias.sh
+# source /home/vagrant/.bashrc
+# echo 'add docker alias done'
 SHELL
+
+  config.vm.provision "shell", path: "add-docker-alias.sh"
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -152,4 +159,5 @@ SHELL
   # SHELL
 
   # config.vm.provision :shell, :inline => "sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config; sudo systemctl restart sshd;", run: "always"
+  # add docker alias
 end
