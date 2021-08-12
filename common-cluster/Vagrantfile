@@ -20,6 +20,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		# config.vm.network "forwarded_port", guest: 22, host: "220#{i}"
 		node.vm.network "forwarded_port", guest: 22, host: "220#{i}"
 		node.vm.network "forwarded_port", guest: 21, host: "212#{i}"
+		if i==1
+			node.vm.network "forwarded_port", guest: 8080, host: 7000
+		end
 		# node.vm.network "forwarded_port", guest: 9998, host: 9999, protocol: "tcp", id: "nc"
 
 		# 设置宿主机与虚拟机的共享目录 (默认当前目录会挂载到虚机主用户目录下/home/vagrant)
