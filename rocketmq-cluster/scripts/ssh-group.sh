@@ -7,7 +7,7 @@ sudo chmod 777 /tmp/sshgen.sh /tmp/sshping.sh
 username="vagrant"
 password="vagrant"
 sshport=22
-iplist="192.168.33.1 192.168.33.2 192.168.33.3"
+iplist="192.168.33.1 192.168.33.2 192.168.33.3 191.168.33.4"
 localip=$(ifconfig | grep "192.168" | awk '{print $2}' | sed -r "s/addr://g")
 
 echo "
