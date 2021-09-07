@@ -7,12 +7,22 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	(1..4).each do |i|
-		config.vm.define "node0#{i}" do |node|
+		config.vm.define "rocketmq0#{i}" do |node|
 	
 		# 设置虚拟机的Box
 		node.vm.box = "centos/7"
 		# 设置虚拟机的主机名
-		node.vm.hostname="node0#{i}"
+		# node.vm.hostname="node0#{i}"
+		case i
+		when 1
+			node.vm.hostname="rocketmq-master01"
+		when 2
+			node.vm.hostname="rocketmq-slave01"
+		when 3
+			node.vm.hostname="rocketmq-master02"
+		when 4
+			node.vm.hostname="rocketmq-slave02"
+		end
 		# 设置虚拟机本地(即宿主机)使用的IP
 		node.vm.network "private_network", ip: "192.168.33.#{i}"
 

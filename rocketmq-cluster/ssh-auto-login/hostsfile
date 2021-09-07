@@ -1,4 +1,4 @@
-node01:22:vagrant:vagrant
-node02:22:vagrant:vagrant
-node03:22:vagrant:vagrant
-node04:22:vagrant:vagrant
+rocketmq-master01:22:vagrant:vagrant
+rocketmq-slave01:22:vagrant:vagrant
+rocketmq-master02:22:vagrant:vagrant
+rocketmq-slave02:22:vagrant:vagrant

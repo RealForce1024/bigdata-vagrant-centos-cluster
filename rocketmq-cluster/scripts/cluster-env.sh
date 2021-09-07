@@ -4,10 +4,15 @@
 #---hosts---
 cat >>/etc/hosts <<EOF
 
-192.168.33.1  node01
-192.168.33.2  node02
-192.168.33.3  node03
-192.168.33.4  node04
+# nameserver
+# 192.168.33.1 rocketmq-nameserver01 
+# 192.168.33.3 rocketmq-nameserver02 
+
+# broker
+192.168.33.1 node01 rocketmq01 rocketmq-master01 rocketmq-nameserver01
+192.168.33.2 node02 rocketmq02 rocketmq-slave01
+192.168.33.3 node03 rocketmq03 rocketmq-master02 rocketmq-nameserver02
+192.168.33.4 node04 rocketmq04 rocketmq-slave02
 
 EOF
 
@@ -44,10 +49,18 @@ unzip apps/rocketmq-all-4.9.0-bin-release.zip -d apps/
 mv apps/rocketmq-all-4.9.0-bin-release apps/rocketmq
 
 
-# sudo mkdir /usr/local/rocketmq/store
-# sudo mkdir /usr/local/rocketmq/store/commitlog
-# sudo mkdir /usr/local/rocketmq/store/consumequeue
-# sudo mkdir /usr/local/rocketmq/store/index
+sudo mkdir -p /usr/local/rocketmq/store
+sudo mkdir -p /usr/local/rocketmq/store/commitlog
+sudo mkdir -p /usr/local/rocketmq/store/consumequeue
+sudo mkdir -p /usr/local/rocketmq/store/index
+sudo mkdir -p /usr/local/rocketmq/store/config
+sudo chmod -R 777 /usr/local/rocketmq/store/
+
+sudo mkdir -p /home/vagrant/store/commitlog
+sudo mkdir -p /home/vagrant/store
+sudo mkdir -p /home/vagrant/store/commitlog
+sudo mkdir -p /home/vagrant/store/consumequeue
+sudo mkdir -p /home/vagrant/store/index
 
 # sudo mkdir /usr/local/rocketmq/store-slave
 # sudo mkdir /usr/local/rocketmq/store-slave/commitlog
@@ -58,6 +71,7 @@ unzip apps/rocketmq-all-4.9.0-bin-release.zip -d apps/
 mv apps/rocketmq-all-4.9.0-bin-release apps/rocketmq
 # flink env update
 cp -r rocketmq-env-files/2m-2s-async/* apps/rocketmq/conf/2m-2s-async/
+cp -r rocketmq-env-files/vm-config/* apps/rocketmq/bin/
 
 
 #---ssh---
